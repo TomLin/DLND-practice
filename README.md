@@ -1,2 +1,2 @@
-# Practice_deep_learning
+# Git_practice_deep_learning
 Practice notebooks for Udacity Deep Learning NanoDegree
