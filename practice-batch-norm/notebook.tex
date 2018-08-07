@@ -1,0 +1,2249 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Batch\_Normalization\_Lesson}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{batch-normalization-lesson}{%
+\section{Batch Normalization
+--~Lesson}\label{batch-normalization-lesson}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Section \ref{theory}
+\item
+  Section \ref{benefits}
+\item
+  Section \ref{implementation_1}
+\item
+  Section \ref{demos}
+\item
+  Section \ref{implementation_2}
+\end{enumerate}
+
+\hypertarget{what-is-batch-normalization}{%
+\section{What is Batch
+Normalization?}\label{what-is-batch-normalization}}
+
+Batch normalization was introduced in Sergey Ioffe's and Christian
+Szegedy's 2015 paper \href{https://arxiv.org/pdf/1502.03167.pdf}{Batch
+Normalization: Accelerating Deep Network Training by Reducing Internal
+Covariate Shift}. The idea is that, instead of just normalizing the
+inputs to the network, we normalize the inputs to \emph{layers within}
+the network. It's called ``batch'' normalization because during
+training, we normalize each layer's inputs by using the mean and
+variance of the values in the current mini-batch.
+
+Why might this help? Well, we know that normalizing the inputs to a
+\emph{network} helps the network learn. But a network is a series of
+layers, where the output of one layer becomes the input to another. That
+means we can think of any layer in a neural network as the \emph{first}
+layer of a smaller network.
+
+For example, imagine a 3 layer network. Instead of just thinking of it
+as a single network with inputs, layers, and outputs, think of the
+output of layer 1 as the input to a two layer network. This two layer
+network would consist of layers 2 and 3 in our original network.
+
+Likewise, the output of layer 2 can be thought of as the input to a
+single layer network, consisting only of layer 3.
+
+When you think of it like that - as a series of neural networks feeding
+into each other - then it's easy to imagine how normalizing the inputs
+to each layer would help. It's just like normalizing the inputs to any
+other neural network, but you're doing it at every layer (sub-network).
+
+Beyond the intuitive reasons, there are good mathematical reasons why it
+helps the network learn better, too. It helps combat what the authors
+call \emph{internal covariate shift}. This discussion is best handled
+\href{https://arxiv.org/pdf/1502.03167.pdf}{in the paper} and in
+\href{http://www.deeplearningbook.org}{Deep Learning} a book you can
+read online written by Ian Goodfellow, Yoshua Bengio, and Aaron
+Courville. Specifically, check out the batch normalization section of
+\href{http://www.deeplearningbook.org/contents/optimization.html}{Chapter
+8: Optimization for Training Deep Models}.
+
+    \hypertarget{benefits-of-batch-normalization}{%
+\section{Benefits of Batch
+Normalization}\label{benefits-of-batch-normalization}}
+
+Batch normalization optimizes network training. It has been shown to
+have several benefits: 1. \textbf{Networks train faster} -- Each
+training \emph{iteration} will actually be slower because of the extra
+calculations during the forward pass and the additional hyperparameters
+to train during back propagation. However, it should converge much more
+quickly, so training should be faster overall. 2. \textbf{Allows higher
+learning rates} -- Gradient descent usually requires small learning
+rates for the network to converge. And as networks get deeper, their
+gradients get smaller during back propagation so they require even more
+iterations. Using batch normalization allows us to use much higher
+learning rates, which further increases the speed at which networks
+train. 3. \textbf{Makes weights easier to initialize} -- Weight
+initialization can be difficult, and it's even more difficult when
+creating deeper networks. Batch normalization seems to allow us to be
+much less careful about choosing our initial starting weights.\\
+4. \textbf{Makes more activation functions viable} --~Some activation
+functions do not work well in some situations. Sigmoids lose their
+gradient pretty quickly, which means they can't be used in deep
+networks. And ReLUs often die out during training, where they stop
+learning completely, so we need to be careful about the range of values
+fed into them. Because batch normalization regulates the values going
+into each activation function, non-linearlities that don't seem to work
+well in deep networks actually become viable again.\\
+5. \textbf{Simplifies the creation of deeper networks} -- Because of the
+first 4 items listed above, it is easier to build and faster to train
+deeper neural networks when using batch normalization. And it's been
+shown that deeper networks generally produce better results, so that's
+great. 6. \textbf{Provides a bit of regularlization} --~Batch
+normalization adds a little noise to your network. In some cases, such
+as in Inception modules, batch normalization has been shown to work as
+well as dropout. But in general, consider batch normalization as a bit
+of extra regularization, possibly allowing you to reduce some of the
+dropout you might add to a network. 7. \textbf{May give better results
+overall} --~Some tests seem to show batch normalization actually
+improves the training results. However, it's really an optimization to
+help train faster, so you shouldn't think of it as a way to make your
+network better. But since it lets you train networks faster, that means
+you can iterate over more designs more quickly. It also lets you build
+deeper networks, which are usually better. So when you factor in
+everything, you're probably going to end up with better results if you
+build your networks with batch normalization.
+
+    \hypertarget{batch-normalization-in-tensorflow}{%
+\section{Batch Normalization in
+TensorFlow}\label{batch-normalization-in-tensorflow}}
+
+This section of the notebook shows you one way to add batch
+normalization to a neural network built in TensorFlow.
+
+The following cell imports the packages we need in the notebook and
+loads the MNIST dataset to use in our experiments. However, the
+\texttt{tensorflow} package contains all the code you'll actually need
+for batch normalization.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Import necessary packages}
+        \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        \PY{k+kn}{import} \PY{n+nn}{tqdm}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{c+c1}{\PYZsh{} Import MNIST data so we have something for our experiments}
+        \PY{k+kn}{from} \PY{n+nn}{tensorflow}\PY{n+nn}{.}\PY{n+nn}{examples}\PY{n+nn}{.}\PY{n+nn}{tutorials}\PY{n+nn}{.}\PY{n+nn}{mnist} \PY{k}{import} \PY{n}{input\PYZus{}data}
+        \PY{n}{mnist} \PY{o}{=} \PY{n}{input\PYZus{}data}\PY{o}{.}\PY{n}{read\PYZus{}data\PYZus{}sets}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MNIST\PYZus{}data/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{one\PYZus{}hot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:tensorflow:From <ipython-input-1-b16d755f6786>:10: read\_data\_sets (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use alternatives such as official/mnist/dataset.py from tensorflow/models.
+WARNING:tensorflow:From /Users/tomlin/miniconda3/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py:260: maybe\_download (from tensorflow.contrib.learn.python.learn.datasets.base) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please write your own downloading logic.
+WARNING:tensorflow:From /Users/tomlin/miniconda3/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/base.py:252: \_internal\_retry.<locals>.wrap.<locals>.wrapped\_fn (from tensorflow.contrib.learn.python.learn.datasets.base) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use urllib or similar directly.
+Successfully downloaded train-images-idx3-ubyte.gz 9912422 bytes.
+WARNING:tensorflow:From /Users/tomlin/miniconda3/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py:262: extract\_images (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use tf.data to implement this functionality.
+Extracting MNIST\_data/train-images-idx3-ubyte.gz
+Successfully downloaded train-labels-idx1-ubyte.gz 28881 bytes.
+WARNING:tensorflow:From /Users/tomlin/miniconda3/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py:267: extract\_labels (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use tf.data to implement this functionality.
+Extracting MNIST\_data/train-labels-idx1-ubyte.gz
+WARNING:tensorflow:From /Users/tomlin/miniconda3/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py:110: dense\_to\_one\_hot (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use tf.one\_hot on tensors.
+Successfully downloaded t10k-images-idx3-ubyte.gz 1648877 bytes.
+Extracting MNIST\_data/t10k-images-idx3-ubyte.gz
+Successfully downloaded t10k-labels-idx1-ubyte.gz 4542 bytes.
+Extracting MNIST\_data/t10k-labels-idx1-ubyte.gz
+WARNING:tensorflow:From /Users/tomlin/miniconda3/lib/python3.6/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py:290: DataSet.\_\_init\_\_ (from tensorflow.contrib.learn.python.learn.datasets.mnist) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use alternatives such as official/mnist/dataset.py from tensorflow/models.
+
+    \end{Verbatim}
+
+    \hypertarget{neural-network-classes-for-testing}{%
+\subsubsection{Neural network classes for
+testing}\label{neural-network-classes-for-testing}}
+
+The following class, \texttt{NeuralNet}, allows us to create identical
+neural networks with and without batch normalization. The code is
+heavily documented, but there is also some additional discussion later.
+You do not need to read through it all before going through the rest of
+the notebook, but the comments within the code blocks may answer some of
+your questions.
+
+\emph{About the code:} \textgreater{}This class is not meant to
+represent TensorFlow best practices --~the design choices made here are
+to support the discussion related to batch normalization.
+
+\begin{quote}
+It's also important to note that we use the well-known MNIST data for
+these examples, but the networks we create are not meant to be good for
+performing handwritten character recognition. We chose this network
+architecture because it is similar to the one used in the original
+paper, which is complex enough to demonstrate some of the benefits of
+batch normalization while still being fast to train.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{class} \PY{n+nc}{NeuralNet}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{initial\PYZus{}weights}\PY{p}{,} \PY{n}{activation\PYZus{}fn}\PY{p}{,} \PY{n}{use\PYZus{}batch\PYZus{}norm}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        Initializes this object, creating a TensorFlow graph using the given parameters.}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        :param initial\PYZus{}weights: list of NumPy arrays or Tensors}
+        \PY{l+s+sd}{            Initial values for the weights for every layer in the network. We pass these in}
+        \PY{l+s+sd}{            so we can create multiple networks with the same starting weights to eliminate}
+        \PY{l+s+sd}{            training differences caused by random initialization differences.}
+        \PY{l+s+sd}{            The number of items in the list defines the number of layers in the network,}
+        \PY{l+s+sd}{            and the shapes of the items in the list define the number of nodes in each layer.}
+        \PY{l+s+sd}{            e.g. Passing in 3 matrices of shape (784, 256), (256, 100), and (100, 10) would }
+        \PY{l+s+sd}{            create a network with 784 inputs going into a hidden layer with 256 nodes,}
+        \PY{l+s+sd}{            followed by a hidden layer with 100 nodes, followed by an output layer with 10 nodes.}
+        \PY{l+s+sd}{        :param activation\PYZus{}fn: Callable}
+        \PY{l+s+sd}{            The function used for the output of each hidden layer. The network will use the same}
+        \PY{l+s+sd}{            activation function on every hidden layer and no activate function on the output layer.}
+        \PY{l+s+sd}{            e.g. Pass tf.nn.relu to use ReLU activations on your hidden layers.}
+        \PY{l+s+sd}{        :param use\PYZus{}batch\PYZus{}norm: bool}
+        \PY{l+s+sd}{            Pass True to create a network that uses batch normalization; False otherwise}
+        \PY{l+s+sd}{            Note: this network will not use batch normalization on layers that do not have an}
+        \PY{l+s+sd}{            activation function.}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{c+c1}{\PYZsh{} Keep track of whether or not this network uses batch normalization.}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{use\PYZus{}batch\PYZus{}norm} \PY{o}{=} \PY{n}{use\PYZus{}batch\PYZus{}norm}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{With Batch Norm}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{use\PYZus{}batch\PYZus{}norm} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Without Batch Norm}\PY{l+s+s2}{\PYZdq{}}
+        
+                \PY{c+c1}{\PYZsh{} Batch normalization needs to do different calculations during training and inference,}
+                \PY{c+c1}{\PYZsh{} so we use this placeholder to tell the graph which behavior to use.}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}training} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{bool}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}training}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} This list is just for keeping track of data we want to plot later.}
+                \PY{c+c1}{\PYZsh{} It doesn\PYZsq{}t actually have anything to do with neural nets or batch normalization.}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{training\PYZus{}accuracies} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+                \PY{c+c1}{\PYZsh{} Create the network graph, but it will not actually have any real values until after you}
+                \PY{c+c1}{\PYZsh{} call train or test}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{build\PYZus{}network}\PY{p}{(}\PY{n}{initial\PYZus{}weights}\PY{p}{,} \PY{n}{activation\PYZus{}fn}\PY{p}{)}
+            
+            \PY{k}{def} \PY{n+nf}{build\PYZus{}network}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{initial\PYZus{}weights}\PY{p}{,} \PY{n}{activation\PYZus{}fn}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        Build the graph. The graph still needs to be trained via the `train` method.}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        :param initial\PYZus{}weights: list of NumPy arrays or Tensors}
+        \PY{l+s+sd}{            See \PYZus{}\PYZus{}init\PYZus{}\PYZus{} for description. }
+        \PY{l+s+sd}{        :param activation\PYZus{}fn: Callable}
+        \PY{l+s+sd}{            See \PYZus{}\PYZus{}init\PYZus{}\PYZus{} for description. }
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{input\PYZus{}layer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{p}{[}\PY{k+kc}{None}\PY{p}{,} \PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                \PY{n}{layer\PYZus{}in} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{input\PYZus{}layer}
+                \PY{k}{for} \PY{n}{weights} \PY{o+ow}{in} \PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                    \PY{n}{layer\PYZus{}in} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fully\PYZus{}connected}\PY{p}{(}\PY{n}{layer\PYZus{}in}\PY{p}{,} \PY{n}{weights}\PY{p}{,} \PY{n}{activation\PYZus{}fn}\PY{p}{)}    
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}layer} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fully\PYZus{}connected}\PY{p}{(}\PY{n}{layer\PYZus{}in}\PY{p}{,} \PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+           
+            \PY{k}{def} \PY{n+nf}{fully\PYZus{}connected}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{layer\PYZus{}in}\PY{p}{,} \PY{n}{initial\PYZus{}weights}\PY{p}{,} \PY{n}{activation\PYZus{}fn}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        Creates a standard, fully connected layer. Its number of inputs and outputs will be}
+        \PY{l+s+sd}{        defined by the shape of `initial\PYZus{}weights`, and its starting weight values will be}
+        \PY{l+s+sd}{        taken directly from that same parameter. If `self.use\PYZus{}batch\PYZus{}norm` is True, this}
+        \PY{l+s+sd}{        layer will include batch normalization, otherwise it will not. }
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        :param layer\PYZus{}in: Tensor}
+        \PY{l+s+sd}{            The Tensor that feeds into this layer. It\PYZsq{}s either the input to the network or the output}
+        \PY{l+s+sd}{            of a previous layer.}
+        \PY{l+s+sd}{        :param initial\PYZus{}weights: NumPy array or Tensor}
+        \PY{l+s+sd}{            Initial values for this layer\PYZsq{}s weights. The shape defines the number of nodes in the layer.}
+        \PY{l+s+sd}{            e.g. Passing in 3 matrix of shape (784, 256) would create a layer with 784 inputs and 256 }
+        \PY{l+s+sd}{            outputs. }
+        \PY{l+s+sd}{        :param activation\PYZus{}fn: Callable or None (default None)}
+        \PY{l+s+sd}{            The non\PYZhy{}linearity used for the output of the layer. If None, this layer will not include }
+        \PY{l+s+sd}{            batch normalization, regardless of the value of `self.use\PYZus{}batch\PYZus{}norm`. }
+        \PY{l+s+sd}{            e.g. Pass tf.nn.relu to use ReLU activations on your hidden layers.}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{c+c1}{\PYZsh{} Since this class supports both options, only use batch normalization when}
+                \PY{c+c1}{\PYZsh{} requested. However, do not use it on the final layer, which we identify}
+                \PY{c+c1}{\PYZsh{} by its lack of an activation function.}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{use\PYZus{}batch\PYZus{}norm} \PY{o+ow}{and} \PY{n}{activation\PYZus{}fn}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{} Batch normalization uses weights as usual, but does NOT add a bias term. This is because }
+                    \PY{c+c1}{\PYZsh{} its calculations include gamma and beta variables that make the bias term unnecessary.}
+                    \PY{c+c1}{\PYZsh{} (See later in the notebook for more details.)}
+                    \PY{n}{weights} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{initial\PYZus{}weights}\PY{p}{)}
+                    \PY{n}{linear\PYZus{}output} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{layer\PYZus{}in}\PY{p}{,} \PY{n}{weights}\PY{p}{)}
+        
+                    \PY{c+c1}{\PYZsh{} Apply batch normalization to the linear combination of the inputs and weights}
+                    \PY{n}{batch\PYZus{}normalized\PYZus{}output} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{batch\PYZus{}normalization}\PY{p}{(}\PY{n}{linear\PYZus{}output}\PY{p}{,} \PY{n}{training}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}training}\PY{p}{)}
+        
+                    \PY{c+c1}{\PYZsh{} Now apply the activation function, *after* the normalization.}
+                    \PY{k}{return} \PY{n}{activation\PYZus{}fn}\PY{p}{(}\PY{n}{batch\PYZus{}normalized\PYZus{}output}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{} When not using batch normalization, create a standard layer that multiplies}
+                    \PY{c+c1}{\PYZsh{} the inputs and weights, adds a bias, and optionally passes the result }
+                    \PY{c+c1}{\PYZsh{} through an activation function.  }
+                    \PY{n}{weights} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{initial\PYZus{}weights}\PY{p}{)}
+                    \PY{n}{biases} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{initial\PYZus{}weights}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{linear\PYZus{}output} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{layer\PYZus{}in}\PY{p}{,} \PY{n}{weights}\PY{p}{)}\PY{p}{,} \PY{n}{biases}\PY{p}{)}
+                    \PY{k}{return} \PY{n}{linear\PYZus{}output} \PY{k}{if} \PY{o+ow}{not} \PY{n}{activation\PYZus{}fn} \PY{k}{else} \PY{n}{activation\PYZus{}fn}\PY{p}{(}\PY{n}{linear\PYZus{}output}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{train}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{session}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{training\PYZus{}batches}\PY{p}{,} \PY{n}{batches\PYZus{}per\PYZus{}sample}\PY{p}{,} \PY{n}{save\PYZus{}model\PYZus{}as}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        Trains the model on the MNIST training dataset.}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        :param session: Session}
+        \PY{l+s+sd}{            Used to run training graph operations.}
+        \PY{l+s+sd}{        :param learning\PYZus{}rate: float}
+        \PY{l+s+sd}{            Learning rate used during gradient descent.}
+        \PY{l+s+sd}{        :param training\PYZus{}batches: int}
+        \PY{l+s+sd}{            Number of batches to train.}
+        \PY{l+s+sd}{        :param batches\PYZus{}per\PYZus{}sample: int}
+        \PY{l+s+sd}{            How many batches to train before sampling the validation accuracy.}
+        \PY{l+s+sd}{        :param save\PYZus{}model\PYZus{}as: string or None (default None)}
+        \PY{l+s+sd}{            Name to use if you want to save the trained model.}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{c+c1}{\PYZsh{} This placeholder will store the target labels for each mini batch}
+                \PY{n}{labels} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{p}{[}\PY{k+kc}{None}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Define loss and optimizer}
+                \PY{n}{cross\PYZus{}entropy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}
+                    \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{softmax\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{n}{labels}\PY{p}{,} \PY{n}{logits}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}layer}\PY{p}{)}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} Define operations for testing}
+                \PY{n}{correct\PYZus{}prediction} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}layer}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{labels}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                \PY{n}{accuracy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{cast}\PY{p}{(}\PY{n}{correct\PYZus{}prediction}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{)}
+        
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{use\PYZus{}batch\PYZus{}norm}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{} If we don\PYZsq{}t include the update ops as dependencies on the train step, the }
+                    \PY{c+c1}{\PYZsh{} tf.layers.batch\PYZus{}normalization layers won\PYZsq{}t update their population statistics,}
+                    \PY{c+c1}{\PYZsh{} which will cause the model to fail at inference time}
+                    \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{control\PYZus{}dependencies}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}collection}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{GraphKeys}\PY{o}{.}\PY{n}{UPDATE\PYZus{}OPS}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{train\PYZus{}step} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{GradientDescentOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{cross\PYZus{}entropy}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{train\PYZus{}step} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{GradientDescentOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{cross\PYZus{}entropy}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} Train for the appropriate number of batches. (tqdm is only for a nice timing display)}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{tqdm}\PY{o}{.}\PY{n}{tqdm}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{training\PYZus{}batches}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{} We use batches of 60 just because the original paper did. You can use any size batch you like.}
+                    \PY{n}{batch\PYZus{}xs}\PY{p}{,} \PY{n}{batch\PYZus{}ys} \PY{o}{=} \PY{n}{mnist}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{next\PYZus{}batch}\PY{p}{(}\PY{l+m+mi}{60}\PY{p}{)}
+                    \PY{n}{session}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{train\PYZus{}step}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{input\PYZus{}layer}\PY{p}{:} \PY{n}{batch\PYZus{}xs}\PY{p}{,} 
+                                                       \PY{n}{labels}\PY{p}{:} \PY{n}{batch\PYZus{}ys}\PY{p}{,} 
+                                                       \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}training}\PY{p}{:} \PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}
+                
+                    \PY{c+c1}{\PYZsh{} Periodically test accuracy against the 5k validation images and store it for plotting later.}
+                    \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{n}{batches\PYZus{}per\PYZus{}sample} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                        \PY{n}{test\PYZus{}accuracy} \PY{o}{=} \PY{n}{session}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{accuracy}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{input\PYZus{}layer}\PY{p}{:} \PY{n}{mnist}\PY{o}{.}\PY{n}{validation}\PY{o}{.}\PY{n}{images}\PY{p}{,}
+                                                                         \PY{n}{labels}\PY{p}{:} \PY{n}{mnist}\PY{o}{.}\PY{n}{validation}\PY{o}{.}\PY{n}{labels}\PY{p}{,}
+                                                                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}training}\PY{p}{:} \PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{)}
+                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{training\PYZus{}accuracies}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{test\PYZus{}accuracy}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} After training, report accuracy against test data}
+                \PY{n}{test\PYZus{}accuracy} \PY{o}{=} \PY{n}{session}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{accuracy}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{input\PYZus{}layer}\PY{p}{:} \PY{n}{mnist}\PY{o}{.}\PY{n}{validation}\PY{o}{.}\PY{n}{images}\PY{p}{,}
+                                                                 \PY{n}{labels}\PY{p}{:} \PY{n}{mnist}\PY{o}{.}\PY{n}{validation}\PY{o}{.}\PY{n}{labels}\PY{p}{,}
+                                                                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}training}\PY{p}{:} \PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{: After training, final accuracy on validation set = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name}\PY{p}{,} \PY{n}{test\PYZus{}accuracy}\PY{p}{)}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} If you want to use this model later for inference instead of having to retrain it,}
+                \PY{c+c1}{\PYZsh{} just construct it with the same parameters and then pass this file to the \PYZsq{}test\PYZsq{} function}
+                \PY{k}{if} \PY{n}{save\PYZus{}model\PYZus{}as}\PY{p}{:}
+                    \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{Saver}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{session}\PY{p}{,} \PY{n}{save\PYZus{}model\PYZus{}as}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{test}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{session}\PY{p}{,} \PY{n}{test\PYZus{}training\PYZus{}accuracy}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{include\PYZus{}individual\PYZus{}predictions}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{restore\PYZus{}from}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        Trains a trained model on the MNIST testing dataset.}
+        
+        \PY{l+s+sd}{        :param session: Session}
+        \PY{l+s+sd}{            Used to run the testing graph operations.}
+        \PY{l+s+sd}{        :param test\PYZus{}training\PYZus{}accuracy: bool (default False)}
+        \PY{l+s+sd}{            If True, perform inference with batch normalization using batch mean and variance;}
+        \PY{l+s+sd}{            if False, perform inference with batch normalization using estimated population mean and variance.}
+        \PY{l+s+sd}{            Note: in real life, *always* perform inference using the population mean and variance.}
+        \PY{l+s+sd}{                  This parameter exists just to support demonstrating what happens if you don\PYZsq{}t.}
+        \PY{l+s+sd}{        :param include\PYZus{}individual\PYZus{}predictions: bool (default True)}
+        \PY{l+s+sd}{            This function always performs an accuracy test against the entire test set. But if this parameter}
+        \PY{l+s+sd}{            is True, it performs an extra test, doing 200 predictions one at a time, and displays the results}
+        \PY{l+s+sd}{            and accuracy.}
+        \PY{l+s+sd}{        :param restore\PYZus{}from: string or None (default None)}
+        \PY{l+s+sd}{            Name of a saved model if you want to test with previously saved weights.}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{c+c1}{\PYZsh{} This placeholder will store the true labels for each mini batch}
+                \PY{n}{labels} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{p}{[}\PY{k+kc}{None}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Define operations for testing}
+                \PY{n}{correct\PYZus{}prediction} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}layer}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{labels}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                \PY{n}{accuracy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{cast}\PY{p}{(}\PY{n}{correct\PYZus{}prediction}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} If provided, restore from a previously saved model}
+                \PY{k}{if} \PY{n}{restore\PYZus{}from}\PY{p}{:}
+                    \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{Saver}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{restore}\PY{p}{(}\PY{n}{session}\PY{p}{,} \PY{n}{restore\PYZus{}from}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Test against all of the MNIST test data}
+                \PY{n}{test\PYZus{}accuracy} \PY{o}{=} \PY{n}{session}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{accuracy}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{input\PYZus{}layer}\PY{p}{:} \PY{n}{mnist}\PY{o}{.}\PY{n}{test}\PY{o}{.}\PY{n}{images}\PY{p}{,}
+                                                                 \PY{n}{labels}\PY{p}{:} \PY{n}{mnist}\PY{o}{.}\PY{n}{test}\PY{o}{.}\PY{n}{labels}\PY{p}{,}
+                                                                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}training}\PY{p}{:} \PY{n}{test\PYZus{}training\PYZus{}accuracy}\PY{p}{\PYZcb{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{75}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{: Accuracy on full test set = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name}\PY{p}{,} \PY{n}{test\PYZus{}accuracy}\PY{p}{)}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} If requested, perform tests predicting individual values rather than batches}
+                \PY{k}{if} \PY{n}{include\PYZus{}individual\PYZus{}predictions}\PY{p}{:}
+                    \PY{n}{predictions} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                    \PY{n}{correct} \PY{o}{=} \PY{l+m+mi}{0}
+        
+                    \PY{c+c1}{\PYZsh{} Do 200 predictions, 1 at a time}
+                    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{)}\PY{p}{:}
+                        \PY{c+c1}{\PYZsh{} This is a normal prediction using an individual test case. However, notice}
+                        \PY{c+c1}{\PYZsh{} we pass `test\PYZus{}training\PYZus{}accuracy` to `feed\PYZus{}dict` as the value for `self.is\PYZus{}training`.}
+                        \PY{c+c1}{\PYZsh{} Remember that will tell it whether it should use the batch mean \PYZam{} variance or}
+                        \PY{c+c1}{\PYZsh{} the population estimates that were calucated while training the model.}
+                        \PY{n}{pred}\PY{p}{,} \PY{n}{corr} \PY{o}{=} \PY{n}{session}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{tf}\PY{o}{.}\PY{n}{arg\PYZus{}max}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}layer}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{accuracy}\PY{p}{]}\PY{p}{,}
+                                                 \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{input\PYZus{}layer}\PY{p}{:} \PY{p}{[}\PY{n}{mnist}\PY{o}{.}\PY{n}{test}\PY{o}{.}\PY{n}{images}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+                                                            \PY{n}{labels}\PY{p}{:} \PY{p}{[}\PY{n}{mnist}\PY{o}{.}\PY{n}{test}\PY{o}{.}\PY{n}{labels}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+                                                            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}training}\PY{p}{:} \PY{n}{test\PYZus{}training\PYZus{}accuracy}\PY{p}{\PYZcb{}}\PY{p}{)}
+                        \PY{n}{correct} \PY{o}{+}\PY{o}{=} \PY{n}{corr}
+        
+                        \PY{n}{predictions}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{200 Predictions:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy on 200 samples:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{correct}\PY{o}{/}\PY{l+m+mi}{200}\PY{p}{)}
+\end{Verbatim}
+
+
+    There are quite a few comments in the code, so those should answer most
+of your questions. However, let's take a look at the most important
+lines.
+
+We add batch normalization to layers inside the
+\texttt{fully\_connected} function. Here are some important points about
+that code: 1. Layers with batch normalization do not include a bias
+term. 2. We use TensorFlow's
+\href{https://www.tensorflow.org/api_docs/python/tf/layers/batch_normalization}{\texttt{tf.layers.batch\_normalization}}
+function to handle the math. (We show lower-level ways to do this
+Section \ref{implementation_2}.) 3. We tell
+\texttt{tf.layers.batch\_normalization} whether or not the network is
+training. This is an important step we'll talk about later. 4. We add
+the normalization \textbf{before} calling the activation function.
+
+In addition to that code, the training step is wrapped in the following
+\texttt{with} statement:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{with}\NormalTok{ tf.control_dependencies(tf.get_collection(tf.GraphKeys.UPDATE_OPS)):}
+\end{Highlighting}
+\end{Shaded}
+
+This line actually works in conjunction with the \texttt{training}
+parameter we pass to \texttt{tf.layers.batch\_normalization}. Without
+it, TensorFlow's batch normalization layer will not operate correctly
+during inference.
+
+Finally, whenever we train the network or perform inference, we use the
+\texttt{feed\_dict} to set \texttt{self.is\_training} to \texttt{True}
+or \texttt{False}, respectively, like in the following line:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{session.run(train_step, feed_dict}\OperatorTok{=}\NormalTok{\{}\VariableTok{self}\NormalTok{.input_layer: batch_xs, }
+\NormalTok{                                               labels: batch_ys, }
+                                               \VariableTok{self}\NormalTok{.is_training: }\VariableTok{True}\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+We'll go into more details later, but next we want to show some
+experiments that use this code and test networks with and without batch
+normalization.
+
+    \hypertarget{batch-normalization-demos}{%
+\section{Batch Normalization Demos}\label{batch-normalization-demos}}
+
+This section of the notebook trains various networks with and without
+batch normalization to demonstrate some of the benefits mentioned
+earlier.
+
+We'd like to thank the author of this blog post
+\href{http://r2rt.com/implementing-batch-normalization-in-tensorflow.html}{Implementing
+Batch Normalization in TensorFlow}. That post provided the idea of - and
+some of the code for - plotting the differences in accuracy during
+training, along with the idea for comparing multiple networks using the
+same initial weights.
+
+    \hypertarget{code-to-support-testing}{%
+\subsection{Code to support testing}\label{code-to-support-testing}}
+
+The following two functions support the demos we run in the notebook.
+
+The first function, \texttt{plot\_training\_accuracies}, simply plots
+the values found in the \texttt{training\_accuracies} lists of the
+\texttt{NeuralNet} objects passed to it. If you look at the
+\texttt{train} function in \texttt{NeuralNet}, you'll see it that while
+it's training the network, it periodically measures validation accuracy
+and stores the results in that list. It does that just to support these
+plots.
+
+The second function, \texttt{train\_and\_test}, creates two neural nets
+- one with and one without batch normalization. It then trains them both
+and tests them, calling \texttt{plot\_training\_accuracies} to plot how
+their accuracies changed over the course of training. The really
+imporant thing about this function is that it initializes the starting
+weights for the networks \emph{outside} of the networks and then passes
+them in. This lets it train both networks from the exact same starting
+weights, which eliminates performance differences that might result from
+(un)lucky initial weights.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}training\PYZus{}accuracies}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Displays a plot of the accuracies calculated during training to demonstrate}
+        \PY{l+s+sd}{    how many iterations it took for the model(s) to converge.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    :param args: One or more NeuralNet objects}
+        \PY{l+s+sd}{        You can supply any number of NeuralNet objects as unnamed arguments }
+        \PY{l+s+sd}{        and this will display their training accuracies. Be sure to call `train` }
+        \PY{l+s+sd}{        the NeuralNets before calling this function.}
+        \PY{l+s+sd}{    :param kwargs: }
+        \PY{l+s+sd}{        You can supply any named parameters here, but `batches\PYZus{}per\PYZus{}sample` is the only}
+        \PY{l+s+sd}{        one we look for. It should match the `batches\PYZus{}per\PYZus{}sample` value you passed}
+        \PY{l+s+sd}{        to the `train` function.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+        
+            \PY{n}{batches\PYZus{}per\PYZus{}sample} \PY{o}{=} \PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batches\PYZus{}per\PYZus{}sample}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            
+            \PY{k}{for} \PY{n}{nn} \PY{o+ow}{in} \PY{n}{args}\PY{p}{:}
+                \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{training\PYZus{}accuracies}\PY{p}{)}\PY{o}{*}\PY{n}{batches\PYZus{}per\PYZus{}sample}\PY{p}{,}\PY{n}{batches\PYZus{}per\PYZus{}sample}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{nn}\PY{o}{.}\PY{n}{training\PYZus{}accuracies}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{nn}\PY{o}{.}\PY{n}{name}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation Accuracy During Training}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{1.1}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{n}{use\PYZus{}bad\PYZus{}weights}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{activation\PYZus{}fn}\PY{p}{,} \PY{n}{training\PYZus{}batches}\PY{o}{=}\PY{l+m+mi}{50000}\PY{p}{,} \PY{n}{batches\PYZus{}per\PYZus{}sample}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Creates two networks, one with and one without batch normalization, then trains them}
+        \PY{l+s+sd}{    with identical starting weights, layers, batches, etc. Finally tests and plots their accuracies.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    :param use\PYZus{}bad\PYZus{}weights: bool}
+        \PY{l+s+sd}{        If True, initialize the weights of both networks to wildly inappropriate weights;}
+        \PY{l+s+sd}{        if False, use reasonable starting weights.}
+        \PY{l+s+sd}{    :param learning\PYZus{}rate: float}
+        \PY{l+s+sd}{        Learning rate used during gradient descent.}
+        \PY{l+s+sd}{    :param activation\PYZus{}fn: Callable}
+        \PY{l+s+sd}{        The function used for the output of each hidden layer. The network will use the same}
+        \PY{l+s+sd}{        activation function on every hidden layer and no activate function on the output layer.}
+        \PY{l+s+sd}{        e.g. Pass tf.nn.relu to use ReLU activations on your hidden layers.}
+        \PY{l+s+sd}{    :param training\PYZus{}batches: (default 50000)}
+        \PY{l+s+sd}{        Number of batches to train.}
+        \PY{l+s+sd}{    :param batches\PYZus{}per\PYZus{}sample: (default 500)}
+        \PY{l+s+sd}{        How many batches to train before sampling the validation accuracy.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} Use identical starting weights for each network to eliminate differences in}
+            \PY{c+c1}{\PYZsh{} weight initialization as a cause for differences seen in training performance}
+            \PY{c+c1}{\PYZsh{}}
+            \PY{c+c1}{\PYZsh{} Note: The networks will use these weights to define the number of and shapes of}
+            \PY{c+c1}{\PYZsh{}       its layers. The original batch normalization paper used 3 hidden layers}
+            \PY{c+c1}{\PYZsh{}       with 100 nodes in each, followed by a 10 node output layer. These values}
+            \PY{c+c1}{\PYZsh{}       build such a network, but feel free to experiment with different choices.}
+            \PY{c+c1}{\PYZsh{}       However, the input size should always be 784 and the final output should be 10.}
+            \PY{k}{if} \PY{n}{use\PYZus{}bad\PYZus{}weights}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} These weights should be horrible because they have such a large standard deviation}
+                \PY{n}{weights} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{784}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{5.0}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{5.0}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{5.0}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{5.0}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+                          \PY{p}{]}
+            \PY{k}{else}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} These weights should be good because they have such a small standard deviation}
+                \PY{n}{weights} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{784}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+                          \PY{p}{]}
+        
+            \PY{c+c1}{\PYZsh{} Just to make sure the TensorFlow\PYZsq{}s default graph is empty before we start another}
+            \PY{c+c1}{\PYZsh{} test, because we don\PYZsq{}t bother using different graphs or scoping and naming }
+            \PY{c+c1}{\PYZsh{} elements carefully in this sample code.}
+            \PY{n}{tf}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} build two versions of same network, 1 without and 1 with batch normalization}
+            \PY{n}{nn} \PY{o}{=} \PY{n}{NeuralNet}\PY{p}{(}\PY{n}{weights}\PY{p}{,} \PY{n}{activation\PYZus{}fn}\PY{p}{,} \PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{bn} \PY{o}{=} \PY{n}{NeuralNet}\PY{p}{(}\PY{n}{weights}\PY{p}{,} \PY{n}{activation\PYZus{}fn}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} train and test the two models}
+            \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+                \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{)}
+        
+                \PY{n}{nn}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{training\PYZus{}batches}\PY{p}{,} \PY{n}{batches\PYZus{}per\PYZus{}sample}\PY{p}{)}
+                \PY{n}{bn}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{training\PYZus{}batches}\PY{p}{,} \PY{n}{batches\PYZus{}per\PYZus{}sample}\PY{p}{)}
+            
+                \PY{n}{nn}\PY{o}{.}\PY{n}{test}\PY{p}{(}\PY{n}{sess}\PY{p}{)}
+                \PY{n}{bn}\PY{o}{.}\PY{n}{test}\PY{p}{(}\PY{n}{sess}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Display a graph of how validation accuracies changed during training}
+            \PY{c+c1}{\PYZsh{} so we can compare how the models trained and when they converged}
+            \PY{n}{plot\PYZus{}training\PYZus{}accuracies}\PY{p}{(}\PY{n}{nn}\PY{p}{,} \PY{n}{bn}\PY{p}{,} \PY{n}{batches\PYZus{}per\PYZus{}sample}\PY{o}{=}\PY{n}{batches\PYZus{}per\PYZus{}sample}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{comparisons-between-identical-networks-with-and-without-batch-normalization}{%
+\subsection{Comparisons between identical networks, with and without
+batch
+normalization}\label{comparisons-between-identical-networks-with-and-without-batch-normalization}}
+
+The next series of cells train networks with various settings to show
+the differences with and without batch normalization. They are meant to
+clearly demonstrate the effects of batch normalization. We include a
+deeper discussion of batch normalization later in the notebook.
+
+    \textbf{The following creates two networks using a ReLU activation
+function, a learning rate of 0.01, and reasonable starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{False}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:42<00:00, 1183.34it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.972999632358551
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:33<00:00, 533.50it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9831997156143188
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.9748001098632812
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9803001880645752
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As expected, both networks train well and eventually reach similar test
+accuracies. However, notice that the model with batch normalization
+converges slightly faster than the other network, reaching accuracies
+over 90\% almost immediately and nearing its max acuracy in 10 or 15
+thousand iterations. The other network takes about 3 thousand iterations
+to reach 90\% and doesn't near its best accuracy until 30 thousand or
+more iterations.
+
+If you look at the raw speed, you can see that without batch
+normalization we were computing over 1100 batches per second, whereas
+with batch normalization that goes down to just over 500. However, batch
+normalization allows us to perform fewer iterations and converge in less
+time over all. (We only trained for 50 thousand batches here so we could
+plot the comparison.)
+
+    \textbf{The following creates two networks with the same hyperparameters
+used in the previous example, but only trains for 2000 iterations.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{False}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 2000/2000 [00:01<00:00, 1069.17it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.8285998106002808
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 2000/2000 [00:04<00:00, 491.20it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9577997326850891
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.826200008392334
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9525001049041748
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As you can see, using batch normalization produces a model with over
+95\% accuracy in only 2000 batches, and it was above 90\% at somewhere
+around 500 batches. Without batch normalization, the model takes 1750
+iterations just to hit 80\% --~the network with batch normalization hits
+that mark after around 200 iterations! (Note: if you run the code
+yourself, you'll see slightly different results each time because the
+starting weights - while the same for each model - are different for
+each run.)
+
+In the above example, you should also notice that the networks trained
+fewer batches per second then what you saw in the previous example.
+That's because much of the time we're tracking is actually spent
+periodically performing inference to collect data for the plots. In this
+example we perform that inference every 50 batches instead of every 500,
+so generating the plot for this example requires 10 times the overhead
+for the same 2000 iterations.
+
+    \textbf{The following creates two networks using a sigmoid activation
+function, a learning rate of 0.01, and reasonable starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{False}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:43<00:00, 1153.97it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.8343997597694397
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:35<00:00, 526.30it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9755997061729431
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.8271000385284424
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9732001423835754
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    With the number of layers we're using and this small learning rate,
+using a sigmoid activation function takes a long time to start learning.
+It eventually starts making progress, but it took over 45 thousand
+batches just to get over 80\% accuracy. Using batch normalization gets
+to 90\% in around one thousand batches.
+
+    \textbf{The following creates two networks using a ReLU activation
+function, a learning rate of 1, and reasonable starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:35<00:00, 1397.55it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.0957999974489212
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:39<00:00, 501.48it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.984399676322937
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.09799998998641968
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9834001660346985
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Now we're using ReLUs again, but with a larger learning rate. The plot
+shows how training started out pretty normally, with the network with
+batch normalization starting out faster than the other. But the higher
+learning rate bounces the accuracy around a bit more, and at some point
+the accuracy in the network without batch normalization just completely
+crashes. It's likely that too many ReLUs died off at this point because
+of the high learning rate.
+
+The next cell shows the same test again. The network with batch
+normalization performs the same way, and the other suffers from the same
+problem again, but it manages to train longer before it happens.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:36<00:00, 1379.92it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.09859999269247055
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:42<00:00, 488.08it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9839996695518494
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.10099999606609344
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9822001457214355
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In both of the previous examples, the network with batch normalization
+manages to gets over 98\% accuracy, and get near that result almost
+immediately. The higher learning rate allows the network to train
+extremely fast.
+
+    \textbf{The following creates two networks using a sigmoid activation
+function, a learning rate of 1, and reasonable starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:36<00:00, 1382.38it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.9783996343612671
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:35<00:00, 526.13it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9837996959686279
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.9752001166343689
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.981200098991394
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In this example, we switched to a sigmoid activation function. It
+appears to handle the higher learning rate well, with both networks
+achieving high accuracy.
+
+The cell below shows a similar pair of networks trained for only 2000
+iterations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 2000/2000 [00:01<00:00, 1167.28it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.920799732208252
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 2000/2000 [00:04<00:00, 490.92it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.951799750328064
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.9227001070976257
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9463001489639282
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As you can see, even though these parameters work well for both
+networks, the one with batch normalization gets over 90\% in 400 or so
+batches, whereas the other takes over 1700. When training larger
+networks, these sorts of differences become more pronounced.
+
+    \textbf{The following creates two networks using a ReLU activation
+function, a learning rate of 2, and reasonable starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:35<00:00, 1412.09it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.09859999269247055
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:36<00:00, 518.06it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9827996492385864
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.10099999606609344
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9827001094818115
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    With this very large learning rate, the network with batch normalization
+trains fine and almost immediately manages 98\% accuracy. However, the
+network without normalization doesn't learn at all.
+
+    \textbf{The following creates two networks using a sigmoid activation
+function, a learning rate of 2, and reasonable starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:35<00:00, 1395.37it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.9795997142791748
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:38<00:00, 506.05it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9803997278213501
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.9782001376152039
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9782000780105591
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Once again, using a sigmoid activation function with the larger learning
+rate works well both with and without batch normalization.
+
+However, look at the plot below where we train models with the same
+parameters but only 2000 iterations. As usual, batch normalization lets
+it train faster.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 2000/2000 [00:01<00:00, 1170.27it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.9383997917175293
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 2000/2000 [00:04<00:00, 495.04it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9573997259140015
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.9360001087188721
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9524001479148865
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In the rest of the examples, we use really bad starting weights. That
+is, normally we would use very small values close to zero. However, in
+these examples we choose random values with a standard deviation of 5.
+If you were really training a neural network, you would \textbf{not}
+want to do this. But these examples demonstrate how batch normalization
+makes your network much more resilient.
+
+    \textbf{The following creates two networks using a ReLU activation
+function, a learning rate of 0.01, and bad starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:43<00:00, 1147.21it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.0957999974489212
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:37<00:00, 515.05it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.7945998311042786
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.09799998998641968
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.7990000247955322
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As the plot shows, without batch normalization the network never learns
+anything at all. But with batch normalization, it actually learns pretty
+well and gets to almost 80\% accuracy. The starting weights obviously
+hurt the network, but you can see how well batch normalization does in
+overcoming them.
+
+    \textbf{The following creates two networks using a sigmoid activation
+function, a learning rate of 0.01, and bad starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:45<00:00, 1108.50it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.22019998729228973
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:34<00:00, 531.21it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.8591998219490051
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.22699999809265137
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.8527000546455383
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Using a sigmoid activation function works better than the ReLU in the
+previous example, but without batch normalization it would take a
+tremendously long time to train the network, if it ever trained at all.
+
+    \textbf{The following creates two networks using a ReLU activation
+function, a learning rate of 1, and bad starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:38<00:00, 1313.14it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.11259999126195908
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:36<00:00, 520.39it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9243997931480408
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.11349999904632568
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9208000302314758
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The higher learning rate used here allows the network with batch
+normalization to surpass 90\% in about 30 thousand batches. The network
+without it never gets anywhere.
+
+    \textbf{The following creates two networks using a sigmoid activation
+function, a learning rate of 1, and bad starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:35<00:00, 1409.45it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.896999716758728
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:33<00:00, 534.39it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9569997787475586
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.8957001566886902
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9505001306533813
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Using sigmoid works better than ReLUs for this higher learning rate.
+However, you can see that without batch normalization, the network takes
+a long time tro train, bounces around a lot, and spends a long time
+stuck at 90\%. The network with batch normalization trains much more
+quickly, seems to be more stable, and achieves a higher accuracy.
+
+    \textbf{The following creates two networks using a ReLU activation
+function, a learning rate of 2, and bad starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:35<00:00, 1392.83it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.0957999974489212
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:33<00:00, 536.51it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9127997159957886
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.09800000488758087
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9054000973701477
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We've already seen that ReLUs do not do as well as sigmoids with higher
+learning rates, and here we are using an extremely high rate. As
+expected, without batch normalization the network doesn't learn at all.
+But with batch normalization, it eventually achieves 90\% accuracy.
+Notice, though, how its accuracy bounces around wildly during training -
+that's because the learning rate is really much too high, so the fact
+that this worked at all is a bit of luck.
+
+    \textbf{The following creates two networks using a sigmoid activation
+function, a learning rate of 2, and bad starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:35<00:00, 1401.19it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.9093997478485107
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:33<00:00, 532.22it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9613996744155884
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.9066000580787659
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9583001136779785
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In this case, the network with batch normalization trained faster and
+reached a higher accuracy. Meanwhile, the high learning rate makes the
+network without normalization bounce around erratically and have trouble
+getting past 90\%.
+
+    \hypertarget{full-disclosure-batch-normalization-doesnt-fix-everything}{%
+\subsubsection{Full Disclosure: Batch Normalization Doesn't Fix
+Everything}\label{full-disclosure-batch-normalization-doesnt-fix-everything}}
+
+Batch normalization isn't magic and it doesn't work every time. Weights
+are still randomly initialized and batches are chosen at random during
+training, so you never know exactly how training will go. Even for these
+tests, where we use the same initial weights for both networks, we still
+get \emph{different} weights each time we run.
+
+This section includes two examples that show runs when batch
+normalization did not help at all.
+
+\textbf{The following creates two networks using a ReLU activation
+function, a learning rate of 1, and bad starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:36<00:00, 1386.17it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.11259999126195908
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:35<00:00, 523.58it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.09879998862743378
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.11350000649690628
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.10099999606609344
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    When we used these same parameters
+Section \ref{successful_example_lr_1}, we saw the network with batch
+normalization reach 92\% validation accuracy. This time we used
+different starting weights, initialized using the same standard
+deviation as before, and the network doesn't learn at all. (Remember, an
+accuracy around 10\% is what the network gets if it just guesses the
+same value all the time.)
+
+\textbf{The following creates two networks using a ReLU activation
+function, a learning rate of 2, and bad starting weights.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{train\PYZus{}and\PYZus{}test}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [00:35<00:00, 1398.39it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Batch Norm: After training, final accuracy on validation set = 0.0957999974489212
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 50000/50000 [01:34<00:00, 529.50it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.09859999269247055
+---------------------------------------------------------------------------
+Without Batch Norm: Accuracy on full test set = 0.09799998998641968
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.10100000351667404
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    When we trained with these parameters and batch normalization
+Section \ref{successful_example_lr_2}, we reached 90\% validation
+accuracy. However, this time the network \emph{almost} starts to make
+some progress in the beginning, but it quickly breaks down and stops
+learning.
+
+\textbf{Note:} Both of the above examples use \emph{extremely} bad
+starting weights, along with learning rates that are too high. While
+we've shown batch normalization \emph{can} overcome bad values, we don't
+mean to encourage actually using them. The examples in this notebook are
+meant to show that batch normalization can help your networks train
+better. But these last two examples should remind you that you still
+want to try to use good network design choices and reasonable starting
+weights. It should also remind you that the results of each attempt to
+train a network are a bit random, even when using otherwise identical
+architectures.
+
+    \hypertarget{batch-normalization-a-detailed-look}{%
+\section{Batch Normalization: A Detailed
+Look}\label{batch-normalization-a-detailed-look}}
+
+    The layer created by \texttt{tf.layers.batch\_normalization} handles all
+the details of implementing batch normalization. Many students will be
+fine just using that and won't care about what's happening at the lower
+levels. However, some students may want to explore the details, so here
+is a short explanation of what's really happening, starting with the
+equations you're likely to come across if you ever read about batch
+normalization.
+
+    In order to normalize the values, we first need to find the average
+value for the batch. If you look at the code, you can see that this is
+not the average value of the batch \emph{inputs}, but the average value
+coming \emph{out} of any particular layer before we pass it through its
+non-linear activation function and then feed it as an input to the
+\emph{next} layer.
+
+We represent the average as \(\mu_B\), which is simply the sum of all of
+the values \(x_i\) divided by the number of values, \(m\)
+
+\[
+\mu_B \leftarrow \frac{1}{m}\sum_{i=1}^m x_i
+\]
+
+We then need to calculate the variance, or mean squared deviation,
+represented as \(\sigma_{B}^{2}\). If you aren't familiar with
+statistics, that simply means for each value \(x_i\), we subtract the
+average value (calculated earlier as \(\mu_B\)), which gives us what's
+called the ``deviation'' for that value. We square the result to get the
+squared deviation. Sum up the results of doing that for each of the
+values, then divide by the number of values, again \(m\), to get the
+average, or mean, squared deviation.
+
+\[
+\sigma_{B}^{2} \leftarrow \frac{1}{m}\sum_{i=1}^m (x_i - \mu_B)^2
+\]
+
+Once we have the mean and variance, we can use them to normalize the
+values with the following equation. For each value, it subtracts the
+mean and divides by the (almost) standard deviation. (You've probably
+heard of standard deviation many times, but if you have not studied
+statistics you might not know that the standard deviation is actually
+the square root of the mean squared deviation.)
+
+\[
+\hat{x_i} \leftarrow \frac{x_i - \mu_B}{\sqrt{\sigma_{B}^{2} + \epsilon}}
+\]
+
+Above, we said ``(almost) standard deviation''. That's because the real
+standard deviation for the batch is calculated by
+\(\sqrt{\sigma_{B}^{2}}\), but the above formula adds the term epsilon,
+\(\epsilon\), before taking the square root. The epsilon can be any
+small, positive constant - in our code we use the value \texttt{0.001}.
+It is there partially to make sure we don't try to divide by zero, but
+it also acts to increase the variance slightly for each batch.
+
+Why increase the variance? Statistically, this makes sense because even
+though we are normalizing one batch at a time, we are also trying to
+estimate the population distribution --~the total training set, which
+itself an estimate of the larger population of inputs your network wants
+to handle. The variance of a population is higher than the variance for
+any sample taken from that population, so increasing the variance a
+little bit for each batch helps take that into account.
+
+At this point, we have a normalized value, represented as \(\hat{x_i}\).
+But rather than use it directly, we multiply it by a gamma value,
+\(\gamma\), and then add a beta value, \(\beta\). Both \(\gamma\) and
+\(\beta\) are learnable parameters of the network and serve to scale and
+shift the normalized value, respectively. Because they are learnable
+just like weights, they give your network some extra knobs to tweak
+during training to help it learn the function it is trying to
+approximate.
+
+\[
+y_i \leftarrow \gamma \hat{x_i} + \beta
+\]
+
+We now have the final batch-normalized output of our layer, which we
+would then pass to a non-linear activation function like sigmoid, tanh,
+ReLU, Leaky ReLU, etc. In the original batch normalization paper (linked
+in the beginning of this notebook), they mention that there might be
+cases when you'd want to perform the batch normalization \emph{after}
+the non-linearity instead of before, but it is difficult to find any
+uses like that in practice.
+
+In \texttt{NeuralNet}'s implementation of \texttt{fully\_connected}, all
+of this math is hidden inside the following line, where
+\texttt{linear\_output} serves as the \(x_i\) from the equations:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{batch_normalized_output }\OperatorTok{=}\NormalTok{ tf.layers.batch_normalization(linear_output, training}\OperatorTok{=}\VariableTok{self}\NormalTok{.is_training)}
+\end{Highlighting}
+\end{Shaded}
+
+The next section shows you how to implement the math directly.
+
+    \hypertarget{batch-normalization-without-the-tf.layers-package}{%
+\subsubsection{\texorpdfstring{Batch normalization without the
+\texttt{tf.layers}
+package}{Batch normalization without the tf.layers package}}\label{batch-normalization-without-the-tf.layers-package}}
+
+Our implementation of batch normalization in \texttt{NeuralNet} uses the
+high-level abstraction
+\href{https://www.tensorflow.org/api_docs/python/tf/layers/batch_normalization}{tf.layers.batch\_normalization},
+found in TensorFlow's
+\href{https://www.tensorflow.org/api_docs/python/tf/layers}{\texttt{tf.layers}}
+package.
+
+However, if you would like to implement batch normalization at a lower
+level, the following code shows you how. It uses
+\href{https://www.tensorflow.org/api_docs/python/tf/nn/batch_normalization}{tf.nn.batch\_normalization}
+from TensorFlow's
+\href{https://www.tensorflow.org/api_docs/python/tf/nn}{neural net (nn)}
+package.
+
+\textbf{1)} You can replace the \texttt{fully\_connected} function in
+the \texttt{NeuralNet} class with the below code and everything in
+\texttt{NeuralNet} will still work like it did before.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{fully\PYZus{}connected}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{layer\PYZus{}in}\PY{p}{,} \PY{n}{initial\PYZus{}weights}\PY{p}{,} \PY{n}{activation\PYZus{}fn}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Creates a standard, fully connected layer. Its number of inputs and outputs will be}
+        \PY{l+s+sd}{    defined by the shape of `initial\PYZus{}weights`, and its starting weight values will be}
+        \PY{l+s+sd}{    taken directly from that same parameter. If `self.use\PYZus{}batch\PYZus{}norm` is True, this}
+        \PY{l+s+sd}{    layer will include batch normalization, otherwise it will not. }
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{    :param layer\PYZus{}in: Tensor}
+        \PY{l+s+sd}{        The Tensor that feeds into this layer. It\PYZsq{}s either the input to the network or the output}
+        \PY{l+s+sd}{        of a previous layer.}
+        \PY{l+s+sd}{    :param initial\PYZus{}weights: NumPy array or Tensor}
+        \PY{l+s+sd}{        Initial values for this layer\PYZsq{}s weights. The shape defines the number of nodes in the layer.}
+        \PY{l+s+sd}{        e.g. Passing in 3 matrix of shape (784, 256) would create a layer with 784 inputs and 256 }
+        \PY{l+s+sd}{        outputs. }
+        \PY{l+s+sd}{    :param activation\PYZus{}fn: Callable or None (default None)}
+        \PY{l+s+sd}{        The non\PYZhy{}linearity used for the output of the layer. If None, this layer will not include }
+        \PY{l+s+sd}{        batch normalization, regardless of the value of `self.use\PYZus{}batch\PYZus{}norm`. }
+        \PY{l+s+sd}{        e.g. Pass tf.nn.relu to use ReLU activations on your hidden layers.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{use\PYZus{}batch\PYZus{}norm} \PY{o+ow}{and} \PY{n}{activation\PYZus{}fn}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Batch normalization uses weights as usual, but does NOT add a bias term. This is because }
+                \PY{c+c1}{\PYZsh{} its calculations include gamma and beta variables that make the bias term unnecessary.}
+                \PY{n}{weights} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{initial\PYZus{}weights}\PY{p}{)}
+                \PY{n}{linear\PYZus{}output} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{layer\PYZus{}in}\PY{p}{,} \PY{n}{weights}\PY{p}{)}
+        
+                \PY{n}{num\PYZus{}out\PYZus{}nodes} \PY{o}{=} \PY{n}{initial\PYZus{}weights}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        
+                \PY{c+c1}{\PYZsh{} Batch normalization adds additional trainable variables: }
+                \PY{c+c1}{\PYZsh{} gamma (for scaling) and beta (for shifting).}
+                \PY{n}{gamma} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{[}\PY{n}{num\PYZus{}out\PYZus{}nodes}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                \PY{n}{beta} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{num\PYZus{}out\PYZus{}nodes}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} These variables will store the mean and variance for this layer over the entire training set,}
+                \PY{c+c1}{\PYZsh{} which we assume represents the general population distribution.}
+                \PY{c+c1}{\PYZsh{} By setting `trainable=False`, we tell TensorFlow not to modify these variables during}
+                \PY{c+c1}{\PYZsh{} back propagation. Instead, we will assign values to these variables ourselves. }
+                \PY{n}{pop\PYZus{}mean} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{num\PYZus{}out\PYZus{}nodes}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{trainable}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                \PY{n}{pop\PYZus{}variance} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{[}\PY{n}{num\PYZus{}out\PYZus{}nodes}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{trainable}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Batch normalization requires a small constant epsilon, used to ensure we don\PYZsq{}t divide by zero.}
+                \PY{c+c1}{\PYZsh{} This is the default value TensorFlow uses.}
+                \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}3}
+        
+                \PY{k}{def} \PY{n+nf}{batch\PYZus{}norm\PYZus{}training}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{} Calculate the mean and variance for the data coming out of this layer\PYZsq{}s linear\PYZhy{}combination step.}
+                    \PY{c+c1}{\PYZsh{} The [0] defines an array of axes to calculate over.}
+                    \PY{n}{batch\PYZus{}mean}\PY{p}{,} \PY{n}{batch\PYZus{}variance} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{moments}\PY{p}{(}\PY{n}{linear\PYZus{}output}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        
+                    \PY{c+c1}{\PYZsh{} Calculate a moving average of the training data\PYZsq{}s mean and variance while training.}
+                    \PY{c+c1}{\PYZsh{} These will be used during inference.}
+                    \PY{c+c1}{\PYZsh{} Decay should be some number less than 1. tf.layers.batch\PYZus{}normalization uses the parameter}
+                    \PY{c+c1}{\PYZsh{} \PYZdq{}momentum\PYZdq{} to accomplish this and defaults it to 0.99}
+                    \PY{n}{decay} \PY{o}{=} \PY{l+m+mf}{0.99}
+                    \PY{n}{train\PYZus{}mean} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{assign}\PY{p}{(}\PY{n}{pop\PYZus{}mean}\PY{p}{,} \PY{n}{pop\PYZus{}mean} \PY{o}{*} \PY{n}{decay} \PY{o}{+} \PY{n}{batch\PYZus{}mean} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{decay}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{train\PYZus{}variance} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{assign}\PY{p}{(}\PY{n}{pop\PYZus{}variance}\PY{p}{,} \PY{n}{pop\PYZus{}variance} \PY{o}{*} \PY{n}{decay} \PY{o}{+} \PY{n}{batch\PYZus{}variance} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{decay}\PY{p}{)}\PY{p}{)}
+        
+                    \PY{c+c1}{\PYZsh{} The \PYZsq{}tf.control\PYZus{}dependencies\PYZsq{} context tells TensorFlow it must calculate \PYZsq{}train\PYZus{}mean\PYZsq{} }
+                    \PY{c+c1}{\PYZsh{} and \PYZsq{}train\PYZus{}variance\PYZsq{} before it calculates the \PYZsq{}tf.nn.batch\PYZus{}normalization\PYZsq{} layer.}
+                    \PY{c+c1}{\PYZsh{} This is necessary because the those two operations are not actually in the graph}
+                    \PY{c+c1}{\PYZsh{} connecting the linear\PYZus{}output and batch\PYZus{}normalization layers, }
+                    \PY{c+c1}{\PYZsh{} so TensorFlow would otherwise just skip them.}
+                    \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{control\PYZus{}dependencies}\PY{p}{(}\PY{p}{[}\PY{n}{train\PYZus{}mean}\PY{p}{,} \PY{n}{train\PYZus{}variance}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                        \PY{k}{return} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{batch\PYZus{}normalization}\PY{p}{(}\PY{n}{linear\PYZus{}output}\PY{p}{,} \PY{n}{batch\PYZus{}mean}\PY{p}{,} \PY{n}{batch\PYZus{}variance}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{epsilon}\PY{p}{)}
+         
+                \PY{k}{def} \PY{n+nf}{batch\PYZus{}norm\PYZus{}inference}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{} During inference, use the our estimated population mean and variance to normalize the layer}
+                    \PY{k}{return} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{batch\PYZus{}normalization}\PY{p}{(}\PY{n}{linear\PYZus{}output}\PY{p}{,} \PY{n}{pop\PYZus{}mean}\PY{p}{,} \PY{n}{pop\PYZus{}variance}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{epsilon}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Use `tf.cond` as a sort of if\PYZhy{}check. When self.is\PYZus{}training is True, TensorFlow will execute }
+                \PY{c+c1}{\PYZsh{} the operation returned from `batch\PYZus{}norm\PYZus{}training`; otherwise it will execute the graph}
+                \PY{c+c1}{\PYZsh{} operation returned from `batch\PYZus{}norm\PYZus{}inference`.}
+                \PY{n}{batch\PYZus{}normalized\PYZus{}output} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{cond}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}training}\PY{p}{,} \PY{n}{batch\PYZus{}norm\PYZus{}training}\PY{p}{,} \PY{n}{batch\PYZus{}norm\PYZus{}inference}\PY{p}{)}
+                    
+                \PY{c+c1}{\PYZsh{} Pass the batch\PYZhy{}normalized layer output through the activation function.}
+                \PY{c+c1}{\PYZsh{} The literature states there may be cases where you want to perform the batch normalization *after*}
+                \PY{c+c1}{\PYZsh{} the activation function, but it is difficult to find any uses of that in practice.}
+                \PY{k}{return} \PY{n}{activation\PYZus{}fn}\PY{p}{(}\PY{n}{batch\PYZus{}normalized\PYZus{}output}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} When not using batch normalization, create a standard layer that multiplies}
+                \PY{c+c1}{\PYZsh{} the inputs and weights, adds a bias, and optionally passes the result }
+                \PY{c+c1}{\PYZsh{} through an activation function.  }
+                \PY{n}{weights} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{initial\PYZus{}weights}\PY{p}{)}
+                \PY{n}{biases} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{initial\PYZus{}weights}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                \PY{n}{linear\PYZus{}output} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{layer\PYZus{}in}\PY{p}{,} \PY{n}{weights}\PY{p}{)}\PY{p}{,} \PY{n}{biases}\PY{p}{)}
+                \PY{k}{return} \PY{n}{linear\PYZus{}output} \PY{k}{if} \PY{o+ow}{not} \PY{n}{activation\PYZus{}fn} \PY{k}{else} \PY{n}{activation\PYZus{}fn}\PY{p}{(}\PY{n}{linear\PYZus{}output}\PY{p}{)}
+\end{Verbatim}
+
+
+    This version of \texttt{fully\_connected} is much longer than the
+original, but once again has extensive comments to help you understand
+it. Here are some important points:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  It explicitly creates variables to store gamma, beta, and the
+  population mean and variance. These were all handled for us in the
+  previous version of the function.
+\item
+  It initializes gamma to one and beta to zero, so they start out having
+  no effect in this calculation:
+  \(y_i \leftarrow \gamma \hat{x_i} + \beta\). However, during training
+  the network learns the best values for these variables using back
+  propagation, just like networks normally do with weights.
+\item
+  Unlike gamma and beta, the variables for population mean and variance
+  are marked as untrainable. That tells TensorFlow not to modify them
+  during back propagation. Instead, the lines that call
+  \texttt{tf.assign} are used to update these variables directly.
+\item
+  TensorFlow won't automatically run the \texttt{tf.assign} operations
+  during training because it only evaluates operations that are required
+  based on the connections it finds in the graph. To get around that, we
+  add this line:
+  \texttt{with\ tf.control\_dependencies({[}train\_mean,\ train\_variance{]}):}
+  before we run the normalization operation. This tells TensorFlow it
+  needs to run those operations before running anything inside the
+  \texttt{with} block.
+\item
+  The actual normalization math is still mostly hidden from us, this
+  time using
+  \href{https://www.tensorflow.org/api_docs/python/tf/nn/batch_normalization}{\texttt{tf.nn.batch\_normalization}}.
+\item
+  \texttt{tf.nn.batch\_normalization} does not have a \texttt{training}
+  parameter like \texttt{tf.layers.batch\_normalization} did. However,
+  we still need to handle training and inference differently, so we run
+  different code in each case using the
+  \href{https://www.tensorflow.org/api_docs/python/tf/cond}{\texttt{tf.cond}}
+  operation.
+\item
+  We use the
+  \href{https://www.tensorflow.org/api_docs/python/tf/nn/moments}{\texttt{tf.nn.moments}}
+  function to calculate the batch mean and variance.
+\end{enumerate}
+
+    \textbf{2)} The current version of the \texttt{train} function in
+\texttt{NeuralNet} will work fine with this new version of
+\texttt{fully\_connected}. However, it uses these lines to ensure
+population statistics are updated when using batch normalization:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if} \VariableTok{self}\NormalTok{.use_batch_norm:}
+    \ControlFlowTok{with}\NormalTok{ tf.control_dependencies(tf.get_collection(tf.GraphKeys.UPDATE_OPS)):}
+\NormalTok{        train_step }\OperatorTok{=}\NormalTok{ tf.train.GradientDescentOptimizer(learning_rate).minimize(cross_entropy)}
+\ControlFlowTok{else}\NormalTok{:}
+\NormalTok{    train_step }\OperatorTok{=}\NormalTok{ tf.train.GradientDescentOptimizer(learning_rate).minimize(cross_entropy)}
+\end{Highlighting}
+\end{Shaded}
+
+Our new version of \texttt{fully\_connected} handles updating the
+population statistics directly. That means you can also simplify your
+code by replacing the above \texttt{if}/\texttt{else} condition with
+just this line:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train_step }\OperatorTok{=}\NormalTok{ tf.train.GradientDescentOptimizer(learning_rate).minimize(cross_entropy)}
+\end{Highlighting}
+\end{Shaded}
+
+    \textbf{3)} And just in case you want to implement every detail from
+scratch, you can replace this line in \texttt{batch\_norm\_training}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{return}\NormalTok{ tf.nn.batch_normalization(linear_output, batch_mean, batch_variance, beta, gamma, epsilon)}
+\end{Highlighting}
+\end{Shaded}
+
+with these lines:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{normalized_linear_output }\OperatorTok{=}\NormalTok{ (linear_output }\OperatorTok{-}\NormalTok{ batch_mean) }\OperatorTok{/}\NormalTok{ tf.sqrt(batch_variance }\OperatorTok{+}\NormalTok{ epsilon)}
+\ControlFlowTok{return}\NormalTok{ gamma }\OperatorTok{*}\NormalTok{ normalized_linear_output }\OperatorTok{+}\NormalTok{ beta}
+\end{Highlighting}
+\end{Shaded}
+
+And replace this line in \texttt{batch\_norm\_inference}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{return}\NormalTok{ tf.nn.batch_normalization(linear_output, pop_mean, pop_variance, beta, gamma, epsilon)}
+\end{Highlighting}
+\end{Shaded}
+
+with these lines:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{normalized_linear_output }\OperatorTok{=}\NormalTok{ (linear_output }\OperatorTok{-}\NormalTok{ pop_mean) }\OperatorTok{/}\NormalTok{ tf.sqrt(pop_variance }\OperatorTok{+}\NormalTok{ epsilon)}
+\ControlFlowTok{return}\NormalTok{ gamma }\OperatorTok{*}\NormalTok{ normalized_linear_output }\OperatorTok{+}\NormalTok{ beta}
+\end{Highlighting}
+\end{Shaded}
+
+As you can see in each of the above substitutions, the two lines of
+replacement code simply implement the following two equations directly.
+The first line calculates the following equation, with
+\texttt{linear\_output} representing \(x_i\) and
+\texttt{normalized\_linear\_output} representing \(\hat{x_i}\):
+
+\[
+\hat{x_i} \leftarrow \frac{x_i - \mu_B}{\sqrt{\sigma_{B}^{2} + \epsilon}}
+\]
+
+And the second line is a direct translation of the following equation:
+
+\[
+y_i \leftarrow \gamma \hat{x_i} + \beta
+\]
+
+We still use the \texttt{tf.nn.moments} operation to implement the other
+two equations from earlier --~the ones that calculate the batch mean and
+variance used in the normalization step. If you really wanted to do
+everything from scratch, you could replace that line, too, but we'll
+leave that to you.
+
+\hypertarget{why-the-difference-between-training-and-inference}{%
+\subsection{Why the difference between training and
+inference?}\label{why-the-difference-between-training-and-inference}}
+
+In the original function that uses
+\texttt{tf.layers.batch\_normalization}, we tell the layer whether or
+not the network is training by passing a value for its \texttt{training}
+parameter, like so:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{batch_normalized_output }\OperatorTok{=}\NormalTok{ tf.layers.batch_normalization(linear_output, training}\OperatorTok{=}\VariableTok{self}\NormalTok{.is_training)}
+\end{Highlighting}
+\end{Shaded}
+
+And that forces us to provide a value for \texttt{self.is\_training} in
+our \texttt{feed\_dict}, like we do in this example from
+\texttt{NeuralNet}'s \texttt{train} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{session.run(train_step, feed_dict}\OperatorTok{=}\NormalTok{\{}\VariableTok{self}\NormalTok{.input_layer: batch_xs, }
+\NormalTok{                                   labels: batch_ys, }
+                                   \VariableTok{self}\NormalTok{.is_training: }\VariableTok{True}\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+If you looked at the Section \ref{low_level_code}, you probably noticed
+that, just like with \texttt{tf.layers.batch\_normalization}, we need to
+do slightly different things during training and inference. But why is
+that?
+
+First, let's look at what happens when we don't. The following function
+is similar to \texttt{train\_and\_test} from earlier, but this time we
+are only testing one network and instead of plotting its accuracy, we
+perform 200 predictions on test inputs, 1 input at at time. We can use
+the \texttt{test\_training\_accuracy} parameter to test the network in
+training or inference modes (the equivalent of passing \texttt{True} or
+\texttt{False} to the \texttt{feed\_dict} for \texttt{is\_training}).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{def} \PY{n+nf}{batch\PYZus{}norm\PYZus{}test}\PY{p}{(}\PY{n}{test\PYZus{}training\PYZus{}accuracy}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    :param test\PYZus{}training\PYZus{}accuracy: bool}
+         \PY{l+s+sd}{        If True, perform inference with batch normalization using batch mean and variance;}
+         \PY{l+s+sd}{        if False, perform inference with batch normalization using estimated population mean and variance.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{n}{weights} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{784}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+                       \PY{p}{]}
+         
+             \PY{n}{tf}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Train the model}
+             \PY{n}{bn} \PY{o}{=} \PY{n}{NeuralNet}\PY{p}{(}\PY{n}{weights}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)}
+          
+             \PY{c+c1}{\PYZsh{} First train the network}
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+                 \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{n}{bn}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{)}
+         
+                 \PY{n}{bn}\PY{o}{.}\PY{n}{test}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{n}{test\PYZus{}training\PYZus{}accuracy}\PY{o}{=}\PY{n}{test\PYZus{}training\PYZus{}accuracy}\PY{p}{,} \PY{n}{include\PYZus{}individual\PYZus{}predictions}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    In the following cell, we pass \texttt{True} for
+\texttt{test\_training\_accuracy}, which performs the same batch
+normalization that we normally perform \textbf{during training}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{batch\PYZus{}norm\PYZus{}test}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 2000/2000 [00:03<00:00, 514.57it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9527996778488159
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.9503000974655151
+200 Predictions: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+Accuracy on 200 samples: 0.05
+
+    \end{Verbatim}
+
+    As you can see, the network guessed the same value every time! But why?
+Because during training, a network with batch normalization adjusts the
+values at each layer based on the mean and variance \textbf{of that
+batch}. The ``batches'' we are using for these predictions have a single
+input each time, so their values \emph{are} the means, and their
+variances will always be 0. That means the network will normalize the
+values at any layer to zero. (Review the equations from before to see
+why a value that is equal to the mean would always normalize to zero.)
+So we end up with the same result for every input we give the network,
+because its the value the network produces when it applies its learned
+weights to zeros at every layer.
+
+\textbf{Note:} If you re-run that cell, you might get a different value
+from what we showed. That's because the specific weights the network
+learns will be different every time. But whatever value it is, it should
+be the same for all 200 predictions.
+
+To overcome this problem, the network does not just normalize the batch
+at each layer. It also maintains an estimate of the mean and variance
+for the entire population. So when we perform inference, instead of
+letting it ``normalize'' all the values using their own means and
+variance, it uses the estimates of the population mean and variance that
+it calculated while training.
+
+So in the following example, we pass \texttt{False} for
+\texttt{test\_training\_accuracy}, which tells the network that we it
+want to perform inference with the population statistics it calculates
+during training.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{batch\PYZus{}norm\PYZus{}test}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 2000/2000 [00:03<00:00, 511.58it/s]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+With Batch Norm: After training, final accuracy on validation set = 0.9577997326850891
+---------------------------------------------------------------------------
+With Batch Norm: Accuracy on full test set = 0.953700065612793
+200 Predictions: [7, 2, 1, 0, 4, 1, 4, 9, 6, 9, 0, 8, 9, 0, 1, 5, 9, 7, 3, 4, 9, 6, 6, 5, 4, 0, 7, 4, 0, 1, 3, 1, 3, 6, 7, 2, 7, 1, 2, 1, 1, 7, 4, 2, 3, 5, 1, 2, 4, 4, 6, 3, 5, 5, 6, 0, 4, 1, 9, 5, 7, 8, 9, 3, 7, 4, 6, 4, 3, 0, 7, 0, 2, 9, 1, 7, 3, 2, 9, 7, 7, 6, 2, 7, 8, 4, 7, 3, 6, 1, 3, 6, 4, 3, 1, 4, 1, 7, 6, 9, 6, 0, 5, 4, 9, 9, 2, 1, 9, 4, 8, 7, 3, 9, 7, 4, 4, 4, 9, 2, 5, 4, 7, 6, 7, 9, 0, 5, 8, 5, 6, 6, 5, 7, 8, 1, 0, 1, 6, 4, 6, 7, 3, 1, 7, 1, 8, 2, 0, 4, 9, 8, 5, 5, 1, 5, 6, 0, 3, 4, 4, 6, 5, 4, 6, 5, 4, 5, 1, 4, 4, 7, 2, 3, 2, 7, 1, 8, 1, 8, 1, 8, 5, 0, 8, 9, 2, 5, 0, 1, 1, 1, 0, 9, 0, 3, 1, 6, 4, 2]
+Accuracy on 200 samples: 0.97
+
+    \end{Verbatim}
+
+    As you can see, now that we're using the estimated population mean and
+variance, we get a 97\% accuracy. That means it guessed correctly on 194
+of the 200 samples --~not too bad for something that trained in under 4
+seconds. :)
+
+\hypertarget{considerations-for-other-network-types}{%
+\section{Considerations for other network
+types}\label{considerations-for-other-network-types}}
+
+This notebook demonstrates batch normalization in a standard neural
+network with fully connected layers. You can also use batch
+normalization in other types of networks, but there are some special
+considerations.
+
+\hypertarget{convnets}{%
+\subsubsection{ConvNets}\label{convnets}}
+
+Convolution layers consist of multiple feature maps. (Remember, the
+depth of a convolutional layer refers to its number of feature maps.)
+And the weights for each feature map are shared across all the inputs
+that feed into the layer. Because of these differences, batch
+normalizaing convolutional layers requires batch/population mean and
+variance per feature map rather than per node in the layer.
+
+When using \texttt{tf.layers.batch\_normalization}, be sure to pay
+attention to the order of your convolutional dimensions. Specifically,
+you may want to set a different value for the \texttt{axis} parameter if
+your layers have their channels first instead of last.
+
+In our low-level implementations, we used the following line to
+calculate the batch mean and variance:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{batch_mean, batch_variance }\OperatorTok{=}\NormalTok{ tf.nn.moments(linear_output, [}\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+If we were dealing with a convolutional layer, we would calculate the
+mean and variance with a line like this instead:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{batch_mean, batch_variance }\OperatorTok{=}\NormalTok{ tf.nn.moments(conv_layer, [}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{], keep_dims}\OperatorTok{=}\VariableTok{False}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The second parameter, \texttt{{[}0,1,2{]}}, tells TensorFlow to
+calculate the batch mean and variance over each feature map. (The three
+axes are the batch, height, and width.) And setting \texttt{keep\_dims}
+to \texttt{False} tells \texttt{tf.nn.moments} not to return values with
+the same size as the inputs. Specifically, it ensures we get one
+mean/variance pair per feature map.
+
+\hypertarget{rnns}{%
+\subsubsection{RNNs}\label{rnns}}
+
+Batch normalization can work with recurrent neural networks, too, as
+shown in the 2016 paper
+\href{https://arxiv.org/abs/1603.09025}{Recurrent Batch Normalization}.
+It's a bit more work to implement, but basically involves calculating
+the means and variances per time step instead of per layer. You can find
+an example where someone extended \texttt{tf.nn.rnn\_cell.RNNCell} to
+include batch normalization in
+\href{https://gist.github.com/spitis/27ab7d2a30bbaf5ef431b4a02194ac60}{this
+GitHub repo}.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
